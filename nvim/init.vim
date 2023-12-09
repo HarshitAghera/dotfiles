@@ -50,26 +50,34 @@ inoremap jk <Esc>
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
 noremap <leader>a :q!<CR>
+noremap <leader>aa :qa!<CR>
 noremap <leader>r :wq<CR>
 noremap <leader>z <C-z>
+noremap <leader>ch :noh<CR>
 
 " noremap <C-j> <C-w>j
 " noremap <C-k> <C-w>k
 " noremap <C-h> <C-w>h
 " noremap <C-l> <C-w>l
 
-noremap <C-j> :tabp<CR>
-noremap <C-k> :tabn<CR>
+noremap <C-j> :bp<CR>
+noremap <C-k> :bn<CR>
+noremap <leader>j :tabp<CR>
+noremap <leader>k :tabn<CR>
 " noremap <C-;> g<Tab>
 
 noremap <leader>b :Ex<CR>
 noremap <leader>o :Texplore<CR>
+
+" C-v doesn't work in windows
+nnoremap <Leader>v <c-v>
 
 noremap <leader>os :e ~/.config/nvim/init.vim<CR>
 noremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 
 set number
 set numberwidth=3
+set colorcolumn=81
 
 set wrap linebreak
 
@@ -83,12 +91,29 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 " For statusline
 Plug 'nvim-lualine/lualine.nvim'
-" If you want to have icons in your statusline choose one of these
-" Plug 'nvim-tree/nvim-web-devicons'
-"
+Plug 'nvim-tree/nvim-web-devicons' " for coloured icons
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
+
+" For Codeschool syntax highlight
+Plug 'rktjmp/lush.nvim'
+Plug 'adisen99/codeschool.nvim'
 
 " For commenting
 Plug 'numToStr/Comment.nvim'
+
+" For Tree-sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+" For LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+" For telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
