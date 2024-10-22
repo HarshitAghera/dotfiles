@@ -2,11 +2,27 @@
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    initial_mode = "insert",
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
+    },
+    layout_config = {
+        height = 0.999999,
+        preview_height = 35,
+        prompt_position = "bottom",
+        width = 0.999999
+    },
+    layout_strategy = 'vertical',
+    cycle_layout_list = 'vertical',
+    path_display = {
+        'smart'
+        -- shorten = {len = 2, exclude = {1, -1}},
+    },
+    preview = {
+        treesitter = true
     },
   },
 }
@@ -67,10 +83,19 @@ local function telescope_live_grep_open_files()
 end
 
 
-vim.keymap.set('n', '<leader>f', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>af', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>rf', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader>gf', 
+    function() 
+        require('telescope.builtin').git_files({ show_untracked = true })
+    end,
+    { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>af', 
+    function() 
+        require('telescope.builtin').find_files({ no_ignore = true })
+    end,
+    { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>cf', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+-- vim.keymap.set('n', '<leader>rf', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 

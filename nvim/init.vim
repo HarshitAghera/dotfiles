@@ -3,7 +3,7 @@ set encoding=utf-8
 set nocompatible
 
 """ General
-set background=dark
+" set background=dark
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set ignorecase         " Do case insensitive matching
@@ -48,9 +48,6 @@ let mapleader = " "
 
 inoremap jk <Esc>
 noremap <leader>w :w<CR>
-noremap <leader>q :q<CR>
-noremap <leader>a :q!<CR>
-noremap <leader>aa :qa!<CR>
 noremap <leader>r :wq<CR>
 noremap <leader>z <C-z>
 noremap <leader>ch :noh<CR>
@@ -62,17 +59,23 @@ noremap <leader>ch :noh<CR>
 
 noremap <C-j> :bp<CR>
 noremap <C-k> :bn<CR>
+noremap <C-n> :tabn<CR>
+noremap <C-p> :tabp<CR>
 noremap <leader>j :tabp<CR>
 noremap <leader>k :tabn<CR>
 " noremap <C-;> g<Tab>
 
-noremap <leader>b :Ex<CR>
-noremap <leader>o :Texplore<CR>
+noremap <leader>b :NvimTreeOpen<CR>
+noremap <leader>o :tabnew <bar> lua require('telescope.builtin').find_files()<CR>
 
 " C-v doesn't work in windows
 nnoremap <Leader>v <c-v>
 
-noremap <leader>os :e ~/.config/nvim/init.vim<CR>
+" copy to clipboard
+vnoremap <Leader>cc "+y
+nnoremap <Leader>C "+yy
+
+" noremap <leader>os :e ~/.config/nvim/init.vim<CR>
 noremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 
 set number
@@ -112,10 +115,17 @@ Plug 'williamboman/mason-lspconfig.nvim'
 
 " For telescope
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+
+" For Tree
+Plug 'nvim-tree/nvim-tree.lua'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+
 lua require('init')
+
+" hack for syntax highlights
+hi link @type.qualifier Keyword

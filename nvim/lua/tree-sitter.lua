@@ -2,6 +2,7 @@
 -- Taken from https://github.com/nvim-lua/kickstart.nvim
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
+
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
@@ -17,14 +18,18 @@ vim.defer_fn(function()
             return lang == "cpp" and vim.api.nvim_buf_line_count(bufnr) > 50000
         end,
     },
-    indent = { enable = true },
+    indent = { enable = false },
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<c-space>',
-        node_incremental = '<c-space>',
-        scope_incremental = '<c-s>',
-        node_decremental = '<M-space>',
+        init_selection = "gnn", -- set to `false` to disable one of the mappings
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+        -- init_selection = '<c-space>',
+        -- node_incremental = '<c-space>',
+        -- scope_incremental = '<c-s>',
+        -- node_decremental = '<M-space>',
       },
     },
     textobjects = {
@@ -45,19 +50,19 @@ vim.defer_fn(function()
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          [']m'] = '@function.outer',
+          ['<leader>gB'] = '@function.outer',
           [']]'] = '@class.outer',
         },
         goto_next_end = {
-          [']M'] = '@function.outer',
+          ['<leader>ge'] = '@function.outer',
           [']['] = '@class.outer',
         },
         goto_previous_start = {
-          ['[m'] = '@function.outer',
+          ['<leader>gb'] = '@function.outer',
           ['[['] = '@class.outer',
         },
         goto_previous_end = {
-          ['[M'] = '@function.outer',
+          ['<leader>gE'] = '@function.outer',
           ['[]'] = '@class.outer',
         },
       },
@@ -74,40 +79,71 @@ vim.defer_fn(function()
   }
 end, 0)
 
-vim.g.codeschool_contrast_dark = "medium"
-vim.cmd.colorscheme 'codeschool'
+vim.o.background = "dark"
 
--- Load and setup function to choose plugin and language highlights
+vim.g.codeschool_contrast_dark = "medium"
+
 require('lush')(require('codeschool').setup({
-    -- no need for plugins for now
-    plugins = {
-        -- "buftabline",
-        -- "coc",
-        -- "cmp", -- nvim-cmp
-        -- "fzf",
-        -- "gitgutter",
-        -- "gitsigns",
-        "lsp",
-        -- "lspsaga",
-        -- "nerdtree",
-        "netrw",
-        -- "nvimtree",
-        -- "neogit",
-        -- "packer",
-        -- "signify",
-        -- "startify",
-        -- "syntastic",
-        -- "telescope",
-        "treesitter"
-    },
-    langs = {
-        "c",
-        "json",
-        "jsx",
-        "lua",
-        "python",
-        "viml",
-        "xml"
-    },
+  plugins = {
+    -- "buftabline",
+    -- "coc",
+    -- "cmp", -- nvim-cmp
+    "fzf",
+    -- "gitgutter",
+    -- "gitsigns",
+    "lsp",
+    -- "lspsaga",
+    -- "nerdtree",
+    -- "netrw",
+    "nvimtree",
+    -- "neogit",
+    -- "packer",
+    -- "signify",
+    -- "startify",
+    -- "syntastic",
+    "telescope",
+    "treesitter"
+  },
+  langs = {
+    "c",
+    -- "clojure",
+    -- "coffeescript",
+    -- "csharp",
+    -- "css",
+    -- "elixir",
+    -- "golang",
+    -- "haskell",
+    -- "html",
+    -- "java",
+    -- "js",
+    "json",
+    -- "jsx",
+    "lua",
+    "markdown",
+    -- "moonscript",
+    -- "objc",
+    -- "ocaml",
+    "purescript",
+    "python",
+    -- "ruby",
+    -- "rust",
+    -- "scala",
+    -- "typescript",
+    "viml",
+    -- "xml"
+  }
 }))
+
+vim.api.nvim_set_hl(0, "@type.builtin.cpp", { link = "Type" })
+vim.api.nvim_set_hl(0, "@variable", { link = "Identifier" })
+vim.api.nvim_set_hl(0, "DiagnosticError", { link = "CodeschoolError" })
+vim.cmd('hi CodeschoolError guifg=#db0a0a')
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { link = "CodeschoolWarning" })
+vim.api.nvim_set_hl(0, "@keyword.import.cpp", { link = "CodeschoolRed" })
+
+-- Enable spell check
+vim.wo.spell = true
+
+-- Do not fix EOL
+vim.o.fixeol = false
 
