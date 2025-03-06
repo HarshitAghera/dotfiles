@@ -1,0 +1,32 @@
+[user]
+	email = haghera@nvidia.com
+	name = Harshit Aghera
+[core]
+	editor = vim
+	editor = nvim
+
+[alias]
+    co = checkout
+    cc = checkout -b
+    c = commit
+    s = status
+    d = diff
+    ds = diff --staged
+
+    can = commit --amend --no-edit
+    caan = commit -a --amend --no-edit
+    pf = push --force-with-lease
+    plff = "!bname=$(git rev-parse --abbrev-ref HEAD); git pull origin $bname --ff-only"
+
+    ud = "!bname=$(git branch --show-current); git co develop; git plff; git co $bname"
+    rd = rebase develop
+
+    mpu = "!bname=$(git branch --show-current); git push -u origin $bname"
+
+    l = log
+    l1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+    l2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+[safe]
+	directory = /home/haghera/nvidia/bmc/nsmd/nsmd
+	directory = /home/haghera/nvidia/bmc/openbmc-build-scripts
+	directory = /home/haghera/nvidia/bmc/openbmc-build-scripts

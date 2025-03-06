@@ -11,7 +11,7 @@ require('telescope').setup {
     },
     layout_config = {
         height = 0.999999,
-        preview_height = 35,
+        preview_height = 25,
         prompt_position = "bottom",
         width = 0.999999
     },
