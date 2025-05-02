@@ -102,7 +102,6 @@ local servers = {
   clangd = {
     cmd = {
         '/usr/bin/clangd-19',
-        '--query-driver=/home/haghera/nvidia/bmc/toolchain/hgxb/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++,/home/haghera/nvidia/bmc/toolchain/hgxb/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-gcc',
         -- '--log=verbose',
     },
     filetypes = {
