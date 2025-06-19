@@ -43,7 +43,6 @@ local on_attach = function(_, bufnr)
     -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     -- end, '[W]orkspace [L]ist Folders')
 
-
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
@@ -88,7 +87,6 @@ nmap('<leader>dh', vim.diagnostic.hide, '[D]iagnostics [S]how')
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
-require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -110,9 +108,9 @@ local servers = {
         'hpp',
         'h',
     },
-  }
+  },
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- pylsp = {},
   -- rust_analyzer = {},
   -- tsserver = {},
@@ -140,17 +138,16 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_enable = false,
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      cmd = (servers[server_name] or {}).cmd,
+for name, config in pairs(servers) do
+    require('lspconfig')[name].setup {
+      cmd = config.cmd,
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
+      settings = config,
+      filetypes = config.filetypes,
     }
-  end,
-}
+end
 

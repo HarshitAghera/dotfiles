@@ -51,19 +51,19 @@ vim.defer_fn(function()
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           ['<leader>gB'] = '@function.outer',
-          [']]'] = '@class.outer',
+          ['<leader>gcB'] = '@class.outer',
         },
         goto_next_end = {
           ['<leader>ge'] = '@function.outer',
-          [']['] = '@class.outer',
+          ['<leader>gce'] = '@class.outer',
         },
         goto_previous_start = {
           ['<leader>gb'] = '@function.outer',
-          ['[['] = '@class.outer',
+          ['<leader>gcb'] = '@class.outer',
         },
         goto_previous_end = {
           ['<leader>gE'] = '@function.outer',
-          ['[]'] = '@class.outer',
+          ['<leader>gcE'] = '@class.outer',
         },
       },
       swap = {
